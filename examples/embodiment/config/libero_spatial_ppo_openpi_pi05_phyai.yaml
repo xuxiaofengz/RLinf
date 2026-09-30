@@ -130,11 +130,8 @@ actor:
 
   model:
     model_path: "/path/to/model/RLinf-Pi05-LIBERO-SFT" # https://huggingface.co/RLinf/RLinf-Pi05-LIBERO-SFT
-<<<<<<< HEAD
     model_type: "openpi"
-=======
-    model_type: "openpi_rlinf"
->>>>>>> PhyaiEmbodiedWoker
+PhyaiEmbodiedWoker
     num_action_chunks: 5 # interface for the env
     action_dim: 7
     num_steps: 3
