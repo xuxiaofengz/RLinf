@@ -269,9 +269,18 @@ def get_embodied_rollout_worker(cfg: DictConfig) -> type[Worker]:
         )
 
         return MultiStepRolloutWorker
-    from rlinf.workers.rollout.phyai.phyai_worker import PhyAIWorker
+    elif backend=="phyai":
+        serving_mode=cfg.rollout.phyai.get("serving_mode","embodied")
+        if serving_mode == "embodied":
+            from rlinf.workers.rollout.phyai.phyai_worker import PhyAIWorker
 
-    return PhyAIWorker
+            return PhyAIWorker
+        elif serving_mode=="worker_http":
+            from rlinf.workers.rollout.phyai.phyai_embodied_worker import PhyaiEmbodiedWorker
+            return PhyaiEmbodiedWorker
+        else:
+            raise ValueError(f"Unsupported phyai serving_mode: {serving_mode}.")
+
 
 
 def get_rollout_backend_worker(cfg: DictConfig) -> Worker:
@@ -309,6 +318,7 @@ def get_rollout_backend_worker(cfg: DictConfig) -> Worker:
             return SGLangWorker
         else:
             raise ValueError(f"Unsupported sglang serving_mode: {serving_mode}.")
+
 
 
 class RunningStatusManager:

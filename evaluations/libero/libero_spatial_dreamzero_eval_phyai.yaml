@@ -21,7 +21,7 @@ runner:
   logger:
     log_path: "../results"
     project_name: rlinf
-    experiment_name: "libero_spatial_eval_dreamzero_sglang"
+    experiment_name: "libero_spatial_eval_dreamzero_phyai"
     logger_backends: ["tensorboard"]
 
   max_epochs: 1
@@ -35,6 +35,9 @@ env:
   group_name: "EnvGroup"
 
   eval:
+    init_params:
+      camera_heights: 360
+      camera_widths: 360
     rollout_epoch: 1
     # LIBERO-Spatial: 10 tasks x 50 trials = 500 init states. With total_num_envs parallel envs,
     # set max_steps_per_rollout_epoch to ceil(500/total_num_envs) * max_episode_steps so auto_reset
@@ -56,7 +59,7 @@ env:
 rollout:
 
   group_name: "RolloutGroup"
-  rollout_backend: "sglang"
+  rollout_backend: "phyai"
   enable_offload: False
   pipeline_stage_num: 1
   return_logprobs: false
@@ -64,10 +67,10 @@ rollout:
     do_sample: false
     max_new_tokens: 1
 
-  sglang:
-    serving_mode: "embodied"
+  phyai:
+    serving_mode: "worker_http"
     http_timeout_s: 600
-    http_max_retries: 5
+    http_max_retries: 0
     http_retry_backoff_s: 1.0
     seed: 1140
     tensor_parallel_size: 1
@@ -104,7 +107,7 @@ rollout:
         dynamic_cache_schedule: false
 
   model:
-    model_type: "dreamzero"
+    model_type: "openpi_rlinf"
     precision: bf16
     model_path: /path/to/RLinf-DreamZero-WAN2.2-5B-LIBERO-SFT-Diffusers # https://huggingface.co/RLinf/RLinf-DreamZero-WAN2.2-5B-LIBERO-SFT-Diffusers
     # Dataset-generated metadata.json for normalisation statistics.
@@ -121,3 +124,8 @@ rollout:
     num_action_per_block: 16
     target_video_height: 160
     target_video_width: 320
+    openpi: 
+      config_name: "name"
+      task: "1"
+      num_steps: 1
+

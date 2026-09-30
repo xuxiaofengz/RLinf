@@ -12,20 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from importlib.metadata import PackageNotFoundError, version
-
+import sglang
 from packaging.version import parse
 
-
-def get_version(pkg):
-    try:
-        return parse(version(pkg))
-    except PackageNotFoundError:
-        return None
-
-
-package_name = "sglang"
-package_version = get_version(package_name)
+package_version = parse(sglang.__version__)
 
 sglang_version = None
 

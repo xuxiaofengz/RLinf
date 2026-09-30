@@ -163,7 +163,7 @@ EMBODIED_MODEL = set(
 )
 
 
-SUPPORTED_ROLLOUT_BACKENDS = ["sglang", "vllm"]
+SUPPORTED_ROLLOUT_BACKENDS = ["sglang", "vllm","phyai"]
 SUPPORTED_TASK_TYPE = [
     "embodied",
     "embodied_eval",
