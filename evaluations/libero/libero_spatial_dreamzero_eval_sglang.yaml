@@ -13,8 +13,7 @@ hydra:
 cluster:
   num_nodes: 1
   component_placement:
-    env: 4
-    rollout: 4
+    env,rollout: all
 
 runner:
   task_type: embodied_eval

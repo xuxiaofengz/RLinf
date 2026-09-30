@@ -107,7 +107,7 @@ rollout:
         dynamic_cache_schedule: false
 
   model:
-    model_type: "openpi_rlinf"
+    model_type: "openpi"
     precision: bf16
     model_path: /path/to/RLinf-DreamZero-WAN2.2-5B-LIBERO-SFT-Diffusers # https://huggingface.co/RLinf/RLinf-DreamZero-WAN2.2-5B-LIBERO-SFT-Diffusers
     # Dataset-generated metadata.json for normalisation statistics.
